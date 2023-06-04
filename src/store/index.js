@@ -265,7 +265,7 @@ verBeneficiario({commit},id){
 async updateBeneficiarios({commit},beneficiario,_id){
   const id = beneficiario._id
   const ins = await axios
-  .put(urlBase+'beneficiario/'+id,beneficiario)
+  .put(urlBase+'beneficiario/_id/'+id,beneficiario)
   .catch(err => {
     console.log(err)
   })
@@ -273,7 +273,7 @@ async updateBeneficiarios({commit},beneficiario,_id){
 },
 async eliminarBeneficiarios({commit},_id){
   const resultado = await axios
-  .delete(urlBase+'beneficiario/'+ _id)
+  .delete(urlBase+'beneficiario/_id/'+ _id)
   .catch(err =>{
     console.log(err)
   })
