@@ -1,6 +1,7 @@
 import { createStore } from 'vuex'
 import router from '@/router'
-const urlBase = 'http://localhost:3000/'
+// const urlBase = 'http://localhost:3000/'
+const urlBase = 'https://donacionesapi.herokuapp.com/'
 import  axios from 'axios'
 export default createStore({
   state: {
@@ -17,18 +18,16 @@ export default createStore({
       nombre:"",
       apellido:"",
       telefono:"",
-      donacion:"",
-      gasto:"",
-      foto:"",
+      donacion:[],
+      gasto:[],
       usuario:""
     },
     consultas:[],
     consulta:{
-      encargado:"",
       direccion:"",
       fecha:"",
       descripcion:"",
-      donacion:"",
+      donacion:[],
       usuario:""
     },
     varios:[],
@@ -50,6 +49,13 @@ export default createStore({
       descripcion:"",
       varios:[],
       materialmedico:[],
+      usuario:""
+    },
+    gastos:[],
+    gasto:{
+      fecha:0,
+      descripcion:"",
+      total:0,
       usuario:""
     }
   },
@@ -180,6 +186,27 @@ export default createStore({
       state.donaciones = state.donaciones.map(item => item._id === payload._id ? payload : item)
       router.push('/donaciones')
     },
+    //gastomutation
+    setGasto(state,payload){
+      state.gastos.push(payload)
+      router.push('/gastos')
+    },
+    cargarGasto(state,payload){
+      state.gastos = payload
+    },
+    eliminarGasto(state, payload){
+      state.gastos = state.gastos.filter(item => item._id !==payload)
+    },
+    tGasto(state, payload){
+      if(!state.gastos.find(item =>item._id ===payload)){
+        return
+      }
+      state.gasto = state.gastos.find(item => item._id ===payload)
+    },
+    updateGasto(state, payload){
+      state.gastos = state.gastos.map(item => item._id === payload._id ? payload : item)
+      router.push('/gastos')
+    },
   },
   actions: {
     //usuariosaccion
@@ -274,7 +301,7 @@ commit('tConsulta',id)
 async updateConsultas({commit},consulta,_id){
 const id = consulta._id
 const ins = await axios
-.put(urlBase+'consulta/'+id,consulta)
+.put(urlBase+'consulta/_id/'+id,consulta)
 .catch(err => {
   console.log(err)
 })
@@ -282,7 +309,7 @@ commit('updateConsulta',consulta)
 },
 async eliminarConsultas({commit},_id){
 const resultado = await axios
-.delete(urlBase+'consulta/'+ _id)
+.delete(urlBase+'consulta/_id/'+ _id)
 .catch(err =>{
   console.log(err)
 })
@@ -383,7 +410,7 @@ const ins = await axios
 .catch(err => {
   console.log(err)
 })
-commit('updateDonacion',material)
+commit('updateDonacion',donacion)
 },
 async eliminarDonaciones({commit},_id){
 const resultado = await axios
@@ -392,6 +419,41 @@ const resultado = await axios
   console.log(err)
 })
 commit('eliminarDonacion',_id)
+},
+//gastoaction
+async obtenerGastos({commit}){
+  const res = await axios
+  .get(urlBase+'gasto/')
+  .then(res =>{
+    const datos = res.data.gastos
+    commit('cargarGasto',datos)
+  })
+},
+async guardarGastos({commit},gasto){
+  const respuesta = await axios
+  .post(urlBase+'gasto',gasto)
+  commit('setGasto',gasto)
+  
+},
+verGasto({commit},id){
+commit('tGasto',id)
+},
+async updateGastos({commit},gasto,_id){
+const id = gasto._id
+const ins = await axios
+.put(urlBase+'gasto/_id/'+id,gasto)
+.catch(err => {
+  console.log(err)
+})
+commit('updateGasto',gasto)
+},
+async eliminarGastos({commit},_id){
+const resultado = await axios
+.delete(urlBase+'gasto/_id/'+ _id)
+.catch(err =>{
+  console.log(err)
+})
+commit('eliminarGasto',_id)
 },
   },
   getters: {

@@ -21,6 +21,7 @@
                       <th scope="col">Medicina Alimento</th>
                       <th scope="col">Cantidad</th>
                       <th scope="col">Descripcion</th>
+                      <th scope="col"></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -29,6 +30,9 @@
                       <td>{{ it.medicinaalimento }}</td>
                       <td>{{ it.cantidad }}</td>
                       <td>{{ it.descripcion }}</td>
+                      <td> <button type="button" class="btn btn-danger" @click="eliminarVarios(it)">
+                        Eliminar
+                      </button></td>
                     </tr>
                   </tbody>
                 </table>
@@ -47,13 +51,16 @@
                     <tr>
                       <th scope="col">Descripcion</th>
                       <th scope="col">Cantidad</th>
-                      
+                      <th scope="col"></th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr v-for="it in donacion.materialmedico" :key="it._id">
                       <td>{{ it.descripcion }}</td>
                       <td>{{ it.cantidad }}</td>
+                      <td><button type="button" class="btn btn-danger" @click="eliminarMaterial(it)">
+                        Eliminar
+                      </button></td>
                     </tr>
                   </tbody>
                 </table>
@@ -173,7 +180,7 @@
 </template>
 
 <script>
-import { computed, onMounted, ref } from 'vue';
+import { computed, onMounted, ref, toRef } from 'vue';
 import { useStore } from 'vuex';
 
 
@@ -186,6 +193,7 @@ export default {
       const store = useStore()
         const materiales = computed(() => store.state.materiales)
         const varios = computed(() => store.state.varios)
+        const donacion = toRef(props, 'donacion');
         
         const actualizarCantidad = (item) => {
   // Validar que la cantidad sea un número válido
@@ -237,6 +245,18 @@ export default {
 
       console.log(props.donacion.varios);
     };
+    const eliminarVarios = (item) => {
+      const index = donacion.value.varios.findIndex((v) => v._id === item._id);
+      if (index !== -1) {
+        donacion.value.varios.splice(index, 1);
+      }
+    };
+    const eliminarMaterial = (item) => {
+      const index = donacion.value.materialmedico.findIndex((m) => m._id === item._id);
+      if (index !== -1) {
+        donacion.value.materialmedico.splice(index, 1);
+      }
+    };
 
         onMounted(async() => {
                 await store.dispatch('obtenerMateriales')
@@ -244,6 +264,8 @@ export default {
             })
 
       return {
+        eliminarVarios,
+        eliminarMaterial,
         materiales,
         agregarDato,
         agregarVarios,

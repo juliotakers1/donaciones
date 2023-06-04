@@ -3,7 +3,7 @@
     
     <NavbarA />
     <div class="btn-group py-2 mx-2" role="group" aria-label="Home">
-      <router-link class="btn btn-dark rounded-pill" to="/buscarPaciente"><i class="fa-solid fa-arrow-left"></i> </router-link>
+      <router-link class="btn btn-dark rounded-pill" to="/varios"><i class="fa-solid fa-arrow-left"></i> </router-link>
     </div>
       <div class="container py-2 row mx-auto">
           <form  @submit.prevent="procesarFormulario" >

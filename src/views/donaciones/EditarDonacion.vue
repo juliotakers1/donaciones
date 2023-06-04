@@ -3,7 +3,7 @@
     
     <NavbarA />
     <div class="btn-group py-2 mx-2" role="group" aria-label="Home">
-      <router-link class="btn btn-dark rounded-pill" to="/buscarPaciente"><i class="fa-solid fa-arrow-left"></i> </router-link>
+      <router-link class="btn btn-dark rounded-pill" to="/donaciones"><i class="fa-solid fa-arrow-left"></i> </router-link>
     </div>
       <div class="container py-2 row mx-auto">
           <form  @submit.prevent="procesarFormulario" >
@@ -44,7 +44,7 @@ import FormDonacion from '@/components/formdonacion/FormDonacion.vue';
             const donacion = computed(() => store.state.donacion)
     
             const procesarFormulario = async () => {
-                await store.dispatch('updateDonacions', donacion.value)
+                await store.dispatch('updateDonaciones', donacion.value)
             }
     
             onMounted(async () => {

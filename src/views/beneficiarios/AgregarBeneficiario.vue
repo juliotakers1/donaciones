@@ -37,18 +37,17 @@ import { ref } from 'vue';
                 nombre:"",
                 apellido:"",
                 telefono:"",
-                donacion:"",
-                gasto:"",
-                foto:"",
+                donacion:[],
+                gasto:[],
                 usuario:""
             })
-
             const procesarFormulario = async() =>{
                 try {
                     if(beneficiario.value===""){
                     console.log('vacio')
                     return
                 }
+                beneficiario.value.usuario = 'julio vasquez'
                 await store.dispatch('guardarBeneficiarios', beneficiario.value)
                 } catch (error) {
                     console.log(error);

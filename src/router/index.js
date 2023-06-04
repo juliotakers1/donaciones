@@ -97,6 +97,36 @@ const routes = [
     name: 'EditarMateriales',
     component: () => import(/* webpackChunkName: "about" */ '../views/materiales/EditarMateriales.vue')
   },
+  {
+    path: '/consultas',
+    name: 'Consultas',
+    component: () => import(/* webpackChunkName: "about" */ '../views/consultas/TodasConsultas.vue')
+  },
+  {
+    path: '/consulta',
+    name: 'Consulta',
+    component: () => import(/* webpackChunkName: "about" */ '../views/consultas/AgregarConsulta.vue')
+  },
+  {
+    path: '/consulta/:_id',
+    name: 'EditarConsultas',
+    component: () => import(/* webpackChunkName: "about" */ '../views/consultas/EditarConsultas.vue')
+  },
+  {
+    path: '/gastos',
+    name: 'Gastos',
+    component: () => import(/* webpackChunkName: "about" */ '../views/gastos/TodosGastos.vue')
+  },
+  {
+    path: '/gasto',
+    name: 'Gasto',
+    component: () => import(/* webpackChunkName: "about" */ '../views/gastos/AgregarGastos.vue')
+  },
+  {
+    path: '/gasto/:_id',
+    name: 'EditarGastos',
+    component: () => import(/* webpackChunkName: "about" */ '../views/gastos/EditarGastos.vue')
+  },
 ]
 
 const router = createRouter({
