@@ -11,13 +11,12 @@ export default createStore({
       apellido:"",
       email:"",
       pass:"",
-      role:""
+      role:"",
+      telefono:""
     },
     beneficiarios:[],
     beneficiario:{
-      nombre:"",
-      apellido:"",
-      telefono:"",
+      paciente:[],
       donacion:[],
       gasto:[],
       usuario:""
@@ -53,9 +52,18 @@ export default createStore({
     },
     gastos:[],
     gasto:{
+      comprobante:"",
       fecha:0,
       descripcion:"",
       total:0,
+      usuario:""
+    },
+    pacientes:[],
+    paciente:{
+      nombre:"",
+      apellido:"",
+      direccion:"",
+      telefono:"",
       usuario:""
     }
   },
@@ -206,6 +214,27 @@ export default createStore({
     updateGasto(state, payload){
       state.gastos = state.gastos.map(item => item._id === payload._id ? payload : item)
       router.push('/gastos')
+    },
+    //pacientemutation
+    setPaciente(state,payload){
+      state.pacientes.push(payload)
+      router.push('/pacientes')
+    },
+    cargarPaciente(state,payload){
+      state.pacientes = payload
+    },
+    eliminarPaciente(state, payload){
+      state.pacientes = state.pacientes.filter(item => item._id !==payload)
+    },
+    tPaciente(state, payload){
+      if(!state.pacientes.find(item =>item._id ===payload)){
+        return
+      }
+      state.paciente = state.pacientes.find(item => item._id ===payload)
+    },
+    updatePaciente(state, payload){
+      state.pacientes = state.pacientes.map(item => item._id === payload._id ? payload : item)
+      router.push('/pacientes')
     },
   },
   actions: {
@@ -454,6 +483,41 @@ const resultado = await axios
   console.log(err)
 })
 commit('eliminarGasto',_id)
+},
+//pacienteaction
+async obtenerPacientes({commit}){
+  const res = await axios
+  .get(urlBase+'paciente/')
+  .then(res =>{
+    const datos = res.data.pacientes
+    commit('cargarPaciente',datos)
+  })
+},
+async guardarPacientes({commit},paciente){
+  const respuesta = await axios
+  .post(urlBase+'paciente',paciente)
+  commit('setPaciente',paciente)
+  
+},
+verPaciente({commit},id){
+commit('tPaciente',id)
+},
+async updatePacientes({commit},paciente,_id){
+const id = paciente._id
+const ins = await axios
+.put(urlBase+'paciente/_id/'+id,paciente)
+.catch(err => {
+  console.log(err)
+})
+commit('updatePaciente',paciente)
+},
+async eliminarPacientes({commit},_id){
+const resultado = await axios
+.delete(urlBase+'paciente/_id/'+ _id)
+.catch(err =>{
+  console.log(err)
+})
+commit('eliminarPaciente',_id)
 },
   },
   getters: {

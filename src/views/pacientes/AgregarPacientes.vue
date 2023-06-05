@@ -3,11 +3,11 @@
     
     <NavbarA />
     <div class="btn-group py-2 mx-2" role="group" aria-label="Home">
-      <router-link class="btn btn-dark rounded-pill" to="/usuarios"><i class="fa-solid fa-arrow-left"></i> </router-link>
+      <router-link class="btn btn-dark rounded-pill" to="/pacientes"><i class="fa-solid fa-arrow-left"></i> </router-link>
     </div>
       <div class="container py-2 row mx-auto">
           <form  @submit.prevent="procesarFormulario" >
-               <FormUsuario :usuario="usuario" />
+               <FormPaciente :paciente="paciente" />
           </form>
           <!-- <div class="d-flex justify-content-center" style="padding-top: 20vh; padding-bottom: 25vh;" v-else>
           <div class="spinner-border rueda " role="status" style="width: 5rem; height: 5rem;">
@@ -21,41 +21,40 @@
     
     <script>
 import NavbarA from '@/layout/NavbarA.vue';
-import FormUsuario from '@/components/formusuario/FormUsuario'
+import FormPaciente from '@/components/formpaciente/FormPaciente'
 import { useStore } from 'vuex';
 import { ref } from 'vue';
    
     export default {
         components:{
             NavbarA,
-            FormUsuario
+            FormPaciente
             },
 
         setup(){
             const store = useStore()
-            const usuario = ref({
+            const paciente = ref({
                 nombre:"",
                 apellido:"",
-                email:"",
-                pass:"",
-                role:"",
-                telefono:""
+                direccion:"",
+                telefono:"",
+                usuario:""
             })
-
+            paciente.value.usuario = 'julio vasquez'
             const procesarFormulario = async() =>{
                 try {
-                    if(usuario.value===""){
+                    if(paciente.value===""){
                     console.log('vacio')
                     return
                 }
-                await store.dispatch('guardarUsuarios', usuario.value)
+                await store.dispatch('guardarPacientes', paciente.value)
                 } catch (error) {
                     console.log(error);
                 }
             }
             return{
                 procesarFormulario,
-                usuario
+                paciente
             }
         }
     }

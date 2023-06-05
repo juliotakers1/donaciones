@@ -8,9 +8,21 @@
                 </div>
               </div>
               <div class="mb-3 row m-3">
-                <label  class="col-sm-2 col-form-label">Medicina Alimento</label>
+                <label  class="col-sm-2 col-form-label">Tipo</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" id="medicina" v-model.trim="vario.medicinaalimento">
+                  <!-- <input type="text" class="form-control" id="medicina" v-model.trim="vario.medicinaalimento"> -->
+                  <div class="form-check">
+                    <input class="form-check-input me-2" type="radio" value="Alimento" id="alimento" v-model.trim="vario.medicinaalimento">
+                    <label class="form-check-label" for="alimento">
+                      Medicina
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input me-2" type="radio" value="Medicina" id="medicina" v-model.trim="vario.medicinaalimento">
+                    <label class="form-check-label" for="medicina">
+                      Alimento
+                    </label>
+                  </div>
                 </div>
               </div>
               <div class="mb-3 row m-3">

@@ -12,7 +12,7 @@
                   <thead>
                       <tr class="ta-head"> 
                         
-                      <!-- <th scope="col" >ID</th> -->
+                      <th scope="col" >No. Comprobante</th>
                       
                       <th scope="col">Fecha</th>
                       <th scope="col">Descripción</th>
@@ -25,7 +25,7 @@
                   
                   <tbody >
                       <tr class="" v-for="item in gastos" :key="item._id">
-                        <!-- <td>{{ item._id }}</td> -->
+                        <td>{{ item.comprobante }}</td>
                        <td>{{ item.fecha }}</td>
                        <td>{{ item.descripcion }}</td>
                        <td>{{ item.total }}</td>

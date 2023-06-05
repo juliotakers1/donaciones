@@ -44,7 +44,7 @@
                     <select class="form-select" aria-label="Administrador" v-model.trim="usuario.role">
                         <option value="ADMIN">Administrador</option>
                         <option value="ENFERMERA">Enfermera</option>
-                        <option value="INVESTIGADOR">Investigador</option>
+                        <option value="COLABORADOR">COLABORADOR</option>
                       </select>
                 </div>
               </div>

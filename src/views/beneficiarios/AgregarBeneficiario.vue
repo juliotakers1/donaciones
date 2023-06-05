@@ -34,8 +34,7 @@ import { ref } from 'vue';
         setup(){
             const store = useStore()
             const beneficiario = ref({
-                nombre:"",
-                apellido:"",
+                paciente:[],
                 telefono:"",
                 donacion:[],
                 gasto:[],

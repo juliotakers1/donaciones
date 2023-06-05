@@ -12,7 +12,7 @@
                   <thead>
                       <tr class="ta-head"> 
                         
-                      <th scope="col" >ID</th>
+                      <!-- <th scope="col" >ID</th> -->
                       
                       <th scope="col">Nombre</th>
                       <th scope="col">Apellido</th>
@@ -25,7 +25,7 @@
                   
                   <tbody >
                       <tr class="" v-for="item in usuarios" :key="item._id">
-                        <td>{{ item._id }}</td>
+                        <!-- <td>{{ item._id }}</td> -->
                        <td>{{ item.nombre }}</td>
                         <td>{{ item.apellido }}</td>
                       <td>{{ item.email }}</td>

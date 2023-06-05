@@ -3,34 +3,37 @@
         <NavbarA />
         <div class="container card shadow-lg" style="margin-top: 50px;">
             <div class="form-container d-flex justify-content-left p-3">
-                <router-link class="btn btn-add me-2 fw-bold text-white shadow-lg" to="/material">Agregar Nuevo</router-link>
+                <router-link class="btn btn-add me-2 fw-bold text-white shadow-lg" to="/paciente">Agregar Nuevo</router-link>
               </div>
             <div class="table-responsive " style="height: 500px;overflow: scroll;">
-                <h2 class="text-center fw-bold mb-2">Aparatos para Movilidad Asistida</h2>
+                <h2 class="text-center fw-bold mb-2">Pacientes</h2>
                 
                 <table class="table table-striped text-center my-3" style="border-radius: 5px;">
                   <thead>
                       <tr class="ta-head"> 
                         
-                      <th scope="col" >ID</th>
+                      <!-- <th scope="col" >ID</th> -->
                       
-                      <th scope="col">Cantidad</th>
-                      <th scope="col">Descripcion</th>
+                      <th scope="col">Nombre</th>
+                      <th scope="col">Apellido</th>
+                      <th scope="col">Dirección</th>
+                      <th scope="col">Telefono</th>
                       <th scope="col">Acciones</th>
                       </tr>
                   </thead>
                   
                   <tbody >
-                      <tr class="" v-for="item in materiales" :key="item._id">
-                        <td>{{ item._id }}</td>
-                       <td>{{ item.cantidad }}</td>
-                        <td>{{ item.descripcion }}</td>
-                
+                      <tr class="" v-for="item in pacientes" :key="item._id">
+                        <!-- <td>{{ item._id }}</td> -->
+                       <td>{{ item.nombre }}</td>
+                        <td>{{ item.apellido }}</td>
+                      <td>{{ item.direccion }}</td>
+                      <td>{{ item.telefono }}</td>
                         <td>
                             <router-link :to="item._id ? {
-                                name: 'EditarMateriales',
+                                name: 'EditarPacientes',
                                 params: { _id: item._id }
-                                } : '/materiales'"
+                                } : '/pacientes'"
                                 class="btn btn-warning me-2">
                   
                                   <i class="fa-solid fa-pen"></i></router-link>
@@ -59,22 +62,22 @@ import { computed, onMounted } from 'vue';
 import { useStore } from 'vuex';
 
 export default {
-    name: "DonacionesTodosMateriales",
+    name: "DonacionesTodosPacientes",
     components: {  NavbarA },
     setup(){
         const store = useStore()
-        const materiales = computed(() => store.state.materiales)
+        const pacientes = computed(() => store.state.pacientes)
 
         const  eliminarDatos = async(_id) => {
-            await store.dispatch('eliminarMateriales', _id)  
+            await store.dispatch('eliminarPacientes', _id)  
           }
 
         onMounted(async() => {
-                await store.dispatch('obtenerMateriales')
+                await store.dispatch('obtenerPacientes')
             })
 
         return{
-            materiales,
+            pacientes,
             eliminarDatos
         }
     }

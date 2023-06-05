@@ -1,24 +1,89 @@
 <template>
     <div class="card container shadow-lg ">
             <h1 class="fw-bold text-center mt-3">Beneficiario</h1>
-              <div class="mb-3 row m-3">
-                <label  class="col-sm-2 col-form-label">Nombre</label>
-                <div class="col-sm-10">
-                  <input type="text" class="form-control" id="nombre" v-model.trim="beneficiario.nombre">
-                </div>
+            <div class="mb-3 row m-3">
+              <label  class="col-sm-2 col-form-label">Paciente</label>
+              <div class="col-sm-10"> 
+                <button type="button" class="btn btn-success mb-2" data-bs-toggle="modal" data-bs-target="#pacientemodal">Agregar Paciente</button>
+                <h2 class="fw-bold text-center mt-2">Paciente</h2>
+              <table class="table  table-warning text-center my-3" >
+                <thead>
+                  <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Apellido</th>
+                    <th scope="col">Direccion</th>
+                    <th scope="col">Telefono</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="it in beneficiario.paciente" :key="it._id">
+                    <td>{{ it.nombre }}</td>
+                    <td>{{ it.apellido }}</td>
+                    <td>{{ it.direccion }}</td>
+                    <td>{{ it.telefono }}</td>
+                    
+                    <!-- <td>{{ it.descripcion }}</td> -->
+                    <td> <button type="button" class="btn btn-danger" @click="eliminarPaciente(it)">
+                      Eliminar
+                    </button></td>
+                  </tr>
+                </tbody>
+              </table>
               </div>
-              <div class="mb-3 row m-3">
-                <label  class="col-sm-2 col-form-label">Apellido</label>
-                <div class="col-sm-10">
-                  <input type="text" class="form-control" id="apellido" v-model.trim="beneficiario.apellido">
-                </div>
-              </div>
-              <div class="mb-3 row m-3">
-                <label  class="col-sm-2 col-form-label">Telefono</label>
-                <div class="col-sm-10">
-                  <input type="text" class="form-control" id="telefono" v-model.trim="beneficiario.telefono">
-                </div>
-              </div>
+          </div>
+          <!-- modal paciente -->
+          <!-- Modal -->
+<div class="modal fade modal-lg" id="pacientemodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Pacientes</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-striped text-center my-3" style="border-radius: 5px;">
+          <thead>
+              <tr class="ta-head"> 
+                
+              <!-- <th scope="col" >ID</th> -->
+              
+              <th scope="col">Nombre</th>
+              <th scope="col">Apellido</th>
+              <th scope="col">Dirección </th>
+              <th scope="col">Telefono</th>
+              <th scope="col">Acciones</th>
+              </tr>
+          </thead>
+          
+          <tbody >
+              <tr class="" v-for="item in pacientes" :key="item._id">
+                <!-- <td>{{ item._id }}</td> -->
+               <td>{{ item.nombre }}</td>
+               <td>{{ item.apellido }}</td>
+               <td>{{ item.direccion }}</td>
+               <td>{{ item.telefono }}</td>
+                <td>
+                  
+                      <button type="button" 
+                      class="btn btn-primary ms-1"
+                      @click="agregarPaciente(item)"
+                      >
+                      <i class="fas fa-plus"></i>
+                    </button>
+                </td>
+              </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+             
               <div class="mb-3 row m-3">
                 <label  class="col-sm-2 col-form-label">Donación</label>
                 <div class="col-sm-10">
@@ -270,6 +335,7 @@ export default {
       const store = useStore()
       const donaciones = computed(() => store.state.donaciones)
       const gastos = computed(() => store.state.gastos)
+      const pacientes = computed(() => store.state.pacientes)
       const beneficiario = toRef(props, 'beneficiario');
 
       const agregarDonacion = (item) => {
@@ -295,9 +361,22 @@ export default {
      beneficiario.value.gasto.splice(index, 1);
    }
  };
+
+ const agregarPaciente = (item) => {
+   
+   props.beneficiario.paciente.push(item);
+ };
+
+ const eliminarPaciente = (item) => {
+   const index = beneficiario.value.paciente.findIndex((v) => v._id === item._id);
+   if (index !== -1) {
+     beneficiario.value.paciente.splice(index, 1);
+   }
+ };
  onMounted(async() =>{
         await store.dispatch('obtenerDonaciones')
         await store.dispatch('obtenerGastos')
+        await store.dispatch('obtenerPacientes')
       })
 
         return{
@@ -307,7 +386,10 @@ export default {
             eliminarDonacion,
             agregarGasto,
             eliminarGasto,
-            gastos
+            gastos,
+            eliminarPaciente,
+            agregarPaciente,
+            pacientes
         }
     }
    

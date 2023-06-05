@@ -1,6 +1,12 @@
 <template>
     <div class="card container shadow-lg ">
             <h1 class="fw-bold text-center mt-3">Gasto</h1>
+            <div class="mb-3 row m-3">
+              <label  class="col-sm-2 col-form-label">No. Comprobante</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="comprobante" v-model.trim="gasto.comprobante">
+              </div>
+            </div>
               <div class="mb-3 row m-3">
                 <label  class="col-sm-2 col-form-label">Fecha</label>
                 <div class="col-sm-10">

@@ -34,6 +34,7 @@ import moment from 'moment';
         setup(){
             const store = useStore()
             const gasto = ref({
+                comprobante:"",
                 fecha:0,
                 descripcion:"",
                 total:0,

@@ -31,6 +31,11 @@
       <i class="fa-solid fa-laptop-medical me-1"></i>GASTOS
       </router-link>
     </div>
+    <div>
+      <router-link class="btn  btn-primary  me-2  fw-bold" id="rla" to="/pacientes">
+      <i class="fa-solid fa-person me-1"></i>PACIENTES
+      </router-link>
+    </div>
    
     <div>
       <button class="btn btn-success rounded-pill"  id="sal" v-if="usuarioAutenticado" @click="cerrarSesion">

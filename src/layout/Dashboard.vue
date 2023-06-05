@@ -39,13 +39,13 @@
               <strong>Gastos</strong>
             </button>
           </router-link>
-          <router-link class=" col-lg-4 col-md-4 col-sm-12" to="/consultas"  style="text-decoration: none;" >
+          <router-link class=" col-lg-4 col-md-4 col-sm-12" to="/pacientes"  style="text-decoration: none;" >
             <button type="button" class="btn btn-lg btn-block  mb-3 " style="font-size:25px; display: block; width: 100%; height: 290px; background-color: #15BE4C; color: black; border-radius: 10px;">
-              <i class="fas fa-laptop-medical mb-3" style="font-size:100px; color: white;"></i>
+              <i class="fas fa-person mb-3" style="font-size:100px; color: white;"></i>
               
               <br>
               
-              <strong>Consultas</strong>
+              <strong>Pacientes</strong>
             </button>
           </router-link>
 

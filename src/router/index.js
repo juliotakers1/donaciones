@@ -127,6 +127,21 @@ const routes = [
     name: 'EditarGastos',
     component: () => import(/* webpackChunkName: "about" */ '../views/gastos/EditarGastos.vue')
   },
+  {
+    path: '/pacientes',
+    name: 'Pacientes',
+    component: () => import(/* webpackChunkName: "about" */ '../views/pacientes/TodosPacientes.vue')
+  },
+  {
+    path: '/paciente',
+    name: 'Paciente',
+    component: () => import(/* webpackChunkName: "about" */ '../views/pacientes/AgregarPacientes.vue')
+  },
+  {
+    path: '/paciente/:_id',
+    name: 'EditarPacientes',
+    component: () => import(/* webpackChunkName: "about" */ '../views/pacientes/EditarPacientes.vue')
+  },
 ]
 
 const router = createRouter({

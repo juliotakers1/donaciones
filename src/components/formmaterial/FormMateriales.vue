@@ -1,6 +1,6 @@
 <template>
     <div class="card container shadow-lg ">
-            <h1 class="fw-bold text-center mt-3">Material</h1>
+            <h1 class="fw-bold text-center mt-3">Aparatos para Movilidad Asistida</h1>
               <div class="mb-3 row m-3">
                 <label  class="col-sm-2 col-form-label">Cantidad</label>
                 <div class="col-sm-10">
