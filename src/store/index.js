@@ -3,8 +3,11 @@ import router from '@/router'
 // const urlBase = 'http://localhost:3000/'
 const urlBase = 'https://donacionesapi.herokuapp.com/'
 import  axios from 'axios'
+import decode from "jwt-decode";
 export default createStore({
   state: {
+    user:"",
+    token: '',
     usuarios:[],
     usuario:{
       nombre:"",
@@ -68,6 +71,26 @@ export default createStore({
     }
   },
   mutations: {
+    //login
+    setToken(state,payload){
+      
+      if(payload ===''){
+        state.user = ''
+      }else{
+        state.user =decode(payload).data;
+      }
+      state.token = payload
+      // router.push({name: 'Home'})
+      
+    },
+    setUser(state,payload){
+      state.user = payload
+      // router.push({name: 'Home'})
+    },
+    setUsuario(state,payload){
+      state.user = payload
+       router.push({name: 'Home'})
+    },
     //usuariosmutation
     setUsuario(state,payload){
       state.usuarios.push(payload)
@@ -242,6 +265,40 @@ export default createStore({
     },
   },
   actions: {
+    //loginaction
+    async ingresoUsuario({commit},usuario){
+      const res = await axios
+      .post(urlBase+'login/', usuario)
+      .then(res =>{
+
+        const datos = res.data
+        
+         
+        commit('setToken', datos.token)
+        commit('setUser',datos.usuarioDB)
+        localStorage.setItem('usuario',datos.token)
+      })
+      
+       router.push({name: 'Home'})
+      .catch(e => {
+        console.log(e);
+      })
+    },
+    async cargarLocalStorage({commit,state}){
+      const usuarioLocal = localStorage.getItem('usuario')
+      
+      if(usuarioLocal){
+        commit('setUser',decode(usuarioLocal).data)
+      }else{
+        return commit('setUser', '')
+      }
+      
+    },
+    cerrarSesion(){
+      this.commit('setUser','')
+      router.push('/')
+      localStorage.removeItem('usuario')
+    },
     //usuariosaccion
     async obtenerUsuarios({commit}){
       const res = await axios
@@ -547,5 +604,8 @@ commit('eliminarPaciente',_id)
 },
   },
   getters: {
+    usuarioAutenticado(state){
+      return !!state.user
+    },
   },
 })

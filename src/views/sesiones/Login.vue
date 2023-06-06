@@ -55,21 +55,45 @@
   </template>
   
   <script>
-import { ref } from 'vue';
+
+import { mapActions } from 'vuex';
 
   
   export default {
    name:'LoginUsuario',
-   setup(){
-    const usuario = ref({
-        email: '',
-        pass: '',
-    })
-
-    return{
-        usuario
+   data() {
+        return {
+            usuario: {email: '', pass: ''},
+            error: '',
+            cargando:false
+        }
+    },
+    computed:{
+        bloquear(){
+            if(!this.email.includes('@')){
+                return true
+            }
+            if(this.pass.length > 5){
+                return false
+            }
+        }
+    },
+    methods:{
+        ...mapActions(['ingresoUsuario']),
+        async login(){
+            try {
+                this.cargando = true
+                await this.ingresoUsuario(this.usuario)
+            } catch (error) {
+                this.error = error
+                console.log(error);
+                
+            }finally{
+                 this.cargando = false
+            }
+            
+        }
     }
-   }
   
   }
   </script>

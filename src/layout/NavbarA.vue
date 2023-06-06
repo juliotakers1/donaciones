@@ -3,7 +3,7 @@
     <div class="navbar navbar-dark shadow-lg  p-2   d-flex justify-content-between" id="nava"  >
     
     <div>
-      <router-link to="/" class="navbar-brand rounded-pill ms-3">
+      <router-link to="/home" class="navbar-brand rounded-pill ms-3">
         <img src="../assets/fondo.png" alt="" width="90" height="60"  >
       </router-link>
     </div>
@@ -47,22 +47,22 @@
   </template>
   
   <script>
-  // import {mapGetters, mapActions, useStore} from 'vuex'
+  import {mapGetters, mapActions, useStore} from 'vuex'
   export default {
       setup() {
-          // const store = useStore()
-          // const user = store.state.user.role
+          const store = useStore()
+          const user = store.state.user.role
   
-          // return {
-          //     user
-          // }
+          return {
+              user
+          }
       },
-      // computed:{
-      //     ...mapGetters(['usuarioAutenticado'])
-      // },
-      // methods: {
-      //     ...mapActions(['cerrarSesion'])
-      // },
+      computed:{
+          ...mapGetters(['usuarioAutenticado'])
+      },
+      methods: {
+          ...mapActions(['cerrarSesion'])
+      },
   }
   </script>
   

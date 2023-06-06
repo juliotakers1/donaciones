@@ -14,9 +14,24 @@
 </template>
 
 <script>
+import {mapGetters, mapActions} from 'vuex'
+import { useStore } from 'vuex'
 export default {
     name: 'DonacionesNavbar',
+    computed:{
+        ...mapGetters(['usuarioAutenticado']) 
+    },
+    methods: {
+        ...mapActions(['cerrarSesion'])
+    },
 
+    setup() {
+        const store = useStore()
+        const user = store.state.user.role
+        return {
+            user
+        }
+    }
 };
 </script>
 
