@@ -28,7 +28,7 @@
                     <tr v-for="it in donacion.varios" :key="it._id">
                       <td>{{ it.nombre }}</td>
                       <td>{{ it.medicinaalimento }}</td>
-                      <td>{{ it.cantidad }}</td>
+                      <td>{{ it.cantidadvarios }}</td>
                       <td>{{ it.descripcion }}</td>
                       <td> <button type="button" class="btn btn-danger" @click="eliminarVarios(it)">
                         Eliminar
@@ -57,7 +57,7 @@
                   <tbody>
                     <tr v-for="it in donacion.materialmedico" :key="it._id">
                       <td>{{ it.descripcion }}</td>
-                      <td>{{ it.cantidad }}</td>
+                      <td>{{ it.cantidadmaterial }}</td>
                       <td><button type="button" class="btn btn-danger" @click="eliminarMaterial(it)">
                         Eliminar
                       </button></td>
@@ -96,7 +96,8 @@
                <td>{{ item.nombre }}</td>
                 <td>{{ item.medicinaalimento }}</td>
               <td>
-                  <input type="number" v-model="item.cantidad" class="form-control" @input="actualizarCantidad(item)">
+                <span class="badge text-bg-danger mb-2">Disponible: {{ item.cantidad }}</span>
+                  <input type="number" v-model="item.cantidadvarios" class="form-control">
               </td>
               <td>{{ item.descripcion }}</td>
               
@@ -144,8 +145,10 @@
           
           <tbody >
               <tr class="" v-for="item in materiales" :key="item._id">
-                <!-- <td>{{ item._id }}</td> -->
-               <td ><input type="number" v-model="item.cantidad" class="form-control" @input="actualizarCantidadMaterial(item)">
+                
+               <td >
+                <span class="badge text-bg-danger mb-2">Disponible: {{ item.cantidad }}</span>
+                <input type="number" v-model="item.cantidadmaterial" class="form-control">
                </td>
                <!-- contenteditable="true" para editar tabla -->
                 <td>{{ item.descripcion }}</td>

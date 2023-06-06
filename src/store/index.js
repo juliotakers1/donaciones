@@ -152,6 +152,10 @@ export default createStore({
       state.varios = state.varios.map(item => item._id === payload._id ? payload : item)
       router.push('/varios')
     },
+    updateVarioSto(state, payload){
+      state.varios = state.varios.map(item => item._id === payload._id ? payload : item)
+      router.push('/varios')
+    },
     //materialmutation
     setMaterial(state,payload){
       state.materiales.push(payload)
@@ -370,6 +374,28 @@ const ins = await axios
   console.log(err)
 })
 commit('updateVario',vario)
+},
+async updateVariosStock({commit},carrito, varios){
+  try {
+    
+    for (const item of Object.entries(carrito)) {
+      const producto = {}
+      const id = item[1]._id
+      
+      producto.stock = item[1].cantidad - varios.cantidad
+      const ing = await axios
+      .put(urlBase+'producto/_id/'+id,producto)
+      .catch(err => {
+        console.log(err);
+      })
+      
+      commit('updateProductoSto',producto)
+    }
+  } catch (error) {
+    console.log(error);
+   
+  }
+  
 },
 async eliminarVarios({commit},_id){
 const resultado = await axios

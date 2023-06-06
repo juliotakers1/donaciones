@@ -22,7 +22,7 @@
     <script>
 import NavbarA from '@/layout/NavbarA.vue';
 import { useStore } from 'vuex';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import FormDonacion from '@/components/formdonacion/FormDonacion.vue';   
     export default {
         components:{
@@ -35,24 +35,35 @@ import FormDonacion from '@/components/formdonacion/FormDonacion.vue';
             const donacion = ref({
                 descripcion:"",
                 varios:[],
+                cantidadmaterial:"",
+                cantidadvarios:"",
                 materialmedico:[],
                 usuario:""
             })
+           
             donacion.value.usuario = "juliovasquez"
+            donacion.value.varios.cantidad = donacion.value.cantidadvarios
+            donacion.value.materialmedico.cantidad = donacion.value.cantidadmaterial
             const procesarFormulario = async() =>{
                 try {
                     if(donacion.value===""){
                     console.log('vacio')
                     return
                 }
+                
                 await store.dispatch('guardarDonaciones', donacion.value)
+                console.log(donacion.value.varios, 'estevarios');
+                await store.dispatch('updateVariosStock', donacion.value.varios, donacion.cantidadvarios )
                 } catch (error) {
                     console.log(error);
                 }
             }
+
+            
             return{
                 procesarFormulario,
-                donacion
+                donacion,
+                
             }
         }
     }
