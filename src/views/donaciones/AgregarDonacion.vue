@@ -53,7 +53,7 @@ import FormDonacion from '@/components/formdonacion/FormDonacion.vue';
                 
                 await store.dispatch('guardarDonaciones', donacion.value)
                 console.log(donacion.value.varios, 'estevarios');
-                await store.dispatch('updateVariosStock', donacion.value.varios, donacion.cantidadvarios )
+                // await store.dispatch('updateVariosStock', donacion.value.varios, donacion.cantidadvarios )
                 } catch (error) {
                     console.log(error);
                 }
