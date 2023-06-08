@@ -22,7 +22,7 @@
               <div class="mb-3 row m-3">
                 <label  class="col-sm-2 col-form-label">Total</label>
                 <div class="col-sm-10">
-                  <input type="number" class="form-control" id="total" v-model.trim="gasto.total">
+                  <input type="number" class="form-control" id="total" v-model.trim="gasto.total" step="any">
                 </div>
               </div>
              

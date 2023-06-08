@@ -28,7 +28,7 @@
                         <td>{{ item.comprobante }}</td>
                        <td>{{ item.fecha }}</td>
                        <td>{{ item.descripcion }}</td>
-                       <td>{{ item.total }}</td>
+                       <td>Q {{ item.total }}</td>
                         <td>
                             <router-link :to="item._id ? {
                                 name: 'EditarGastos',
