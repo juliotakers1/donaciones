@@ -42,14 +42,23 @@
   
       </form>
       
-      <div class="loader" v-else>
-      <span class="fw-bold ">Cargando...</span>
-      </div>
-       <!-- <div class="d-flex justify-content-center" style="padding-top: 20vh; padding-bottom: 25vh;" v-else>
-        <div class="spinner-border rueda " role="status" style="width: 5rem; height: 5rem;">
-          <span class="visually-hidden">Cargando...</span>
+      <div class="loading" v-else>
+        <span class="l">C</span>
+        <span class="o">a</span>
+        <span class="a">r</span>
+        <span class="d">g</span>
+        <span class="i">a</span>
+        <span class="n">n</span>
+        <span class="g">d</span>
+        <span class="d1">o</span>
+        <span class="d2">.</span>
+        <div class="load">
+            <div class="progress"></div>
+            <div class="progress"></div>
+            <div class="progress"></div>
+            <div class="progress"></div>
         </div>
-      </div> -->
+        </div>
     
   </div>
   </template>
@@ -132,72 +141,12 @@ import { mapActions } from 'vuex';
      color: black;
   }
   
-  /* .boton{
-      background: green;
-      color: white;
-  }
-  .boton:hover{
-      background: greenyellow;
-      color: black;
-  } */
+ 
   .rueda{
     color: #ffffff;
   
   }
-  /* From uiverse.io by @mobinkakei */
-  .loader {
-    width: 120px;
-    height: 120px;
-    box-sizing: border-box;
-    border-radius: 50%;
-    border-top: 10px solid #ffffff;
-    position: relative;
-    animation: load 2s linear infinite;
-  }
   
-  .loader::before,.loader::after {
-    content: '';
-    width: 120px;
-    height: 120px;
-    position: absolute;
-    left: 0;
-    top: 0;
-    box-sizing: border-box;
-    border-radius: 50%;
-  }
-  
-  .loader::before {
-    border-top: 10px solid green;
-    transform: rotate(120deg);
-  }
-  
-  .loader::after {
-    border-top: 10px solid #3477db;
-    transform: rotate(240deg);
-  }
-  
-  .loader span {
-    position: absolute;
-    font-size: small;
-    width: 100px;
-    height: 100px;
-    color: #fff;
-    text-align: center;
-    line-height: 100px;
-    animation: a2 2s linear infinite;
-  }
-  
-  @keyframes load {
-    to {
-      transform: rotate(360deg);
-    }
-  }
-  
-  @keyframes a2 {
-    to {
-      transform: rotate(-360deg);
-    }
-  }
   /* From uiverse.io by @adamgiebl */
   button {
    font-family: inherit;
@@ -251,6 +200,160 @@ import { mapActions } from 'vuex';
     transform: translateY(-0.1em);
    }
   }
+  /*load*/
+  .loading {
+    transform: translate(0%, -50%);
+  }
   
+  .l {
+    color: rgb(245, 245, 245);
+    opacity: 0;
+    animation: op 2s ease-in-out infinite;
+    animation-delay: 0.2s;
+  }
   
+  .o {
+    color: black;
+    opacity: 0;
+    animation: op 2s ease-in-out infinite;
+    animation-delay: 0.4s;
+  }
+  
+  .a {
+    color: rgb(255, 255, 255);
+    opacity: 0;
+    animation: op 2s ease-in-out infinite;
+    animation-delay: 0.6s;
+  }
+  
+  .d {
+    color: black;
+    opacity: 0;
+    animation: op 2s ease-in-out infinite;
+    animation-delay: 0.8s;
+  }
+  
+  .i {
+    color: rgb(247, 247, 247);
+    opacity: 0;
+    animation: op 2s ease-in-out infinite;
+    animation-delay: 1s;
+  }
+  
+  .n {
+    color: black;
+    opacity: 0;
+    animation: op 2s ease-in-out infinite;
+    animation-delay: 1.2s;
+  }
+  
+  .g {
+    color: rgb(255, 255, 255);
+    opacity: 0;
+    animation: op 2s ease-in-out infinite;
+    animation-delay: 1.4s;
+  }
+  
+  .d1 {
+    color: black;
+    opacity: 0;
+    animation: op1 2s ease-in-out infinite;
+    animation-delay: 1.6s;
+  }
+  
+  .d2 {
+    color: rgb(243, 243, 0);
+    opacity: 0;
+    animation: op1 2s ease-in-out infinite;
+    animation-delay: 2s;
+  }
+  
+  .load {
+    position: relative;
+    width: 1.2em;
+    height: 1.2em;
+    border-radius: 50%;
+  }
+  
+  .progress {
+    top: 50%;
+    left: -80%;
+    position: absolute;
+    margin-top: 2.2em;
+    transform: translate(10%, -50%);
+    content: '';
+    width: 3.1em;
+    height: 3.1em;
+    background: transparent;
+    border-radius: 50%;
+    animation: load_37100 2s ease-in-out infinite;
+    animation-delay: 1s;
+  }
+  
+  @keyframes load_37100 {
+    0% {
+      background-color: #DB4437;
+    }
+  
+    25% {
+      background-color: #F4B400;
+    }
+  
+    75% {
+      background-color: #ffffff;
+    }
+  
+    100% {
+      background-color: #4285F4;
+    }
+  }
+  
+  .progress:nth-child(2) {
+    left: 50%;
+    animation-delay: 1.3s;
+  }
+  
+  .progress:nth-child(3) {
+    left: 180%;
+    animation-delay: 1.7s;
+  }
+  
+  .progress:nth-child(4) {
+    left: 300%;
+    animation-delay: 2s;
+  }
+  
+  @keyframes op {
+    0% {
+      color: black;
+      opacity: 1;
+    }
+  
+    50% {
+      color: green;
+      opacity: 1;
+    }
+  
+    100% {
+      color: black;
+      opacity: 1;
+    }
+  }
+  
+  @keyframes op1 {
+    0% {
+      color: black;
+      opacity: 1;
+    }
+  
+    50% {
+      color: green;
+      opacity: 0;
+    }
+  
+    100% {
+      color: black;
+      opacity: 1;
+    }
+  }
   </style>
