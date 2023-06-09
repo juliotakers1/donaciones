@@ -4,7 +4,7 @@
       <div class="bct" style="padding-top: 50px;">
       <!-- <h2 class="text-center mb-3">Sistema de Administración</h2> -->
         <div class="container form-container d-flex mx-auto mt-3 row">    
-          <router-link class=" col-lg-4 col-md-4 col-sm-12" to="/usuarios"  style="text-decoration: none;" v-if="user !== 'COLABORADOR' && user !=='ENFERMERA'">
+          <router-link class=" col-lg-4 col-md-4 col-sm-12" to="/usuarios"  style="text-decoration: none;" v-if="user !== 'COLABORADOR' && user !=='ENFERMERA'" >
             <button type="button" class="btn btn-lg btn-block  mb-3" style="font-size:25px; display: block; width:100%; height: 290px; background-color: #15BE4C; color: black; border-radius: 10px;">
               <i class="fas fa-users-cog mb-3" style="font-size:100px; color: white;"></i>
     <!--          <i class="fas fa-user-injured mb-3" style="font-size:100px; color: white;"></i>-->
@@ -68,13 +68,13 @@
     // import { useStore } from 'vuex'
     export default {
         name: 'DashboardMenu',
-    // setup() {
-    //   const store = useStore()
-    //   const user = store.state.user.role
-    //   return {
-    //     user
-    //   }
-    // }
+    setup() {
+      const store = useStore()
+      const user = store.state.user.role
+      return {
+        user
+      }
+    }
     }
     </script>
     

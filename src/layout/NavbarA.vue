@@ -9,7 +9,7 @@
     </div>
   
     <div >
-      <router-link class="btn btn-primary  me-2  fw-bold" id="rla"  to="/usuarios">
+      <router-link class="btn btn-primary  me-2  fw-bold" id="rla"  to="/usuarios" v-if="user !== 'COLABORADOR' && user !=='ENFERMERA'">
       <i class="fa-solid fa-user-plus me-1"></i>USUARIOS
       </router-link>
     </div>
