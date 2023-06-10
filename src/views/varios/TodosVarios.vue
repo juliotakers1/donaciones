@@ -7,7 +7,10 @@
               </div>
             <div class="table-responsive " style="height: 500px;overflow: scroll;">
                 <h2 class="text-center fw-bold mb-2">Varios</h2>
-                
+                <button @click="exportExcel" class="btn btn-danger fw-bold mx-auto">
+
+                    Generar Excel
+                  </button>
                 <table class="table table-striped text-center my-3" style="border-radius: 5px;">
                   <thead>
                       <tr class="ta-head"> 
@@ -61,7 +64,8 @@
 import NavbarA from '@/layout/NavbarA.vue';
 import { computed, onMounted } from 'vue';
 import { useStore } from 'vuex';
-
+import { Grid } from '@progress/kendo-vue-grid';
+import { saveExcel } from '@progress/kendo-vue-excel-export';
 export default {
     name: "DonacionesTodosVarios",
     components: {  NavbarA },
@@ -72,14 +76,28 @@ export default {
         const  eliminarDatos = async(_id) => {
             await store.dispatch('eliminarVarios', _id)  
           }
-
+          const exportExcel =() =>{
+          saveExcel({
+            data: varios.value,
+            fileName: "varios",
+            columns: [
+              { field: '_id'},
+              { field: 'nombre', title: 'Nombre' },
+              { field: 'medicinaalimento', title: 'Medicina Alimento' },
+              { field: 'cantidad', title: 'Cantidad' },
+              { field: 'descripcion', title: 'Descripcion' },
+             
+            ]
+          });
+        }
         onMounted(async() => {
                 await store.dispatch('obtenerVarios')
             })
 
         return{
             varios,
-            eliminarDatos
+            eliminarDatos,
+            exportExcel
         }
     }
 };

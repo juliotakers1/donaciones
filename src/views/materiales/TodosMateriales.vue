@@ -7,7 +7,10 @@
               </div>
             <div class="table-responsive " style="height: 500px;overflow: scroll;">
                 <h2 class="text-center fw-bold mb-2">Aparatos para Movilidad Asistida</h2>
-                
+                <button @click="exportExcel" class="btn btn-danger fw-bold mx-auto">
+
+                    Generar Excel
+                  </button>
                 <table class="table table-striped text-center my-3" style="border-radius: 5px;">
                   <thead>
                       <tr class="ta-head"> 
@@ -57,7 +60,8 @@
 import NavbarA from '@/layout/NavbarA.vue';
 import { computed, onMounted } from 'vue';
 import { useStore } from 'vuex';
-
+import { Grid } from '@progress/kendo-vue-grid';
+import { saveExcel } from '@progress/kendo-vue-excel-export';
 export default {
     name: "DonacionesTodosMateriales",
     components: {  NavbarA },
@@ -69,13 +73,27 @@ export default {
             await store.dispatch('eliminarMateriales', _id)  
           }
 
+          const exportExcel =() =>{
+          saveExcel({
+            data: materiales.value,
+            fileName: "materiales",
+            columns: [
+              { field: '_id'},
+              { field: 'cantidad', title: 'Cantidad' },
+              { field: 'descripcion', title: 'Descripcion' },
+              
+            ]
+          });
+        }
+
         onMounted(async() => {
                 await store.dispatch('obtenerMateriales')
             })
 
         return{
             materiales,
-            eliminarDatos
+            eliminarDatos,
+            exportExcel
         }
     }
 };

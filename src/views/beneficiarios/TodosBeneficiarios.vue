@@ -7,15 +7,18 @@
               </div>
             <div class="table-responsive " style="height: 600px; width:auto; overflow: scroll;">
                 <h2 class="text-center fw-bold mb-2">Beneficiarios</h2>
-                
+                <!-- <button @click="exportExcel" class="btn btn-danger fw-bold mx-auto">
+
+                    Generar Excel
+                  </button> -->
                 <table class="table table-striped text-center my-3" style="border-radius: 5px;">
                   <thead>
                       <tr class="ta-head"> 
                         
                       <!-- <th scope="col" >ID</th> -->
                       
-                      <th scope="col">Nombre</th>
-                      <th scope="col">Apellido</th>
+                      <th scope="col">Paciente</th>
+                      
                       <th scope="col">Donación</th>
                       <th scope="col">Gasto</th>
                       <th scope="col">Acciones</th>
@@ -25,8 +28,8 @@
                   <tbody >
                       <tr class="" v-for="item in beneficiarios" :key="item._id">
                         <!-- <td>{{ item._id }}</td> -->
-                       <td>{{ item.nombre }}</td>
-                        <td>{{ item.apellido }}</td>
+                       <td v-for="item in item.paciente" :key="item._id">{{ item.nombre }} {{ item.apellido }}</td>
+                        
                       <td>
                         <table class="table table-striped text-center my-3" style="border-radius: 5px;">
                             <thead>
@@ -145,7 +148,8 @@
 import NavbarA from '@/layout/NavbarA.vue';
 import { computed, onMounted } from 'vue';
 import { useStore } from 'vuex';
-
+import { Grid } from '@progress/kendo-vue-grid';
+import { saveExcel } from '@progress/kendo-vue-excel-export';
 export default {
     name: "DonacionesTodosBeneficiarios",
     components: {  NavbarA },
@@ -157,13 +161,27 @@ export default {
             await store.dispatch('eliminarBeneficiarios', _id)  
           }
 
+          const exportExcel =() =>{
+          saveExcel({
+            data: beneficiarios.value,
+            fileName: "materiales",
+            columns: [
+              { field: '_id'},
+              { field: 'cantidad', title: 'Cantidad' },
+              { field: 'descripcion', title: 'Descripcion' },
+              
+            ]
+          });
+        }
+
         onMounted(async() => {
                 await store.dispatch('obtenerBeneficiarios')
             })
 
         return{
             beneficiarios,
-            eliminarDatos
+            eliminarDatos,
+            exportExcel
         }
     }
 };
